@@ -73,6 +73,8 @@ pipeline {
         stage('Docker Image Build') {
             agent { label 'agent2' }
             steps {
+                git branch: 'master', url:'https://github.com/ikjin/guestbook.git'
+                sh './mvnw clean package'
                 script {
                     //oDockImage = docker.build(strDockerImage)
                     oDockImage = docker.build(strDockerImage, "--build-arg VERSION=${strDockerTag} -f Dockerfile .")
